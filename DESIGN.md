@@ -37,12 +37,18 @@
 
 旧サイトのカテゴリ名は `content/taxonomy.json` にある。対応はおおむね下記。該当しないものは `content/posts_index.json` の記事タイトルも見て判断し、判断に迷ったものは `docs/category-mapping.md` に一覧で残すこと。
 
-| 旧カテゴリ（例） | 新 | 備考 |
+実際の旧カテゴリは7つ（件数付き）: IoT 208 / 360°VR 67 / ものづくり研究 22 / お酒ハックSakeTamu 13 / 沖縄［OKinawa］ 10 / Game 4 / ホビー 4。
+記事は複数カテゴリを持つことがあるので、**主カテゴリ**を下の優先順で1つ決める（上にあるほど優先）。
+
+| 旧カテゴリ | 新（世界 / カテゴリ） | 備考 |
 |---|---|---|
-| IoT, IoTinfo, IoTthink, IoTreport, IoTbook, IoTchallenge, IoTイベント, IoT News, CEATEC, 東京モーターショー 等 | LAB / iot | 記事の大半 |
-| ものづくり研究, SakeTamu, お酒ハック | LAB / monozukuri | SakeTamuはモノづくりに含める |
-| 360°VR | LAB / vr | |
-| スプラ, スプライフ, Game, ホビー | PLAY / splatoon | ホビーのうちゲーム以外が出てきたら PLAY / other |
+| Game, ホビー | PLAY / splatoon | いまはこの4本だけ。ジャンルは後から増やせる構造にする |
+| お酒ハックSakeTamu, ものづくり研究 | LAB / monozukuri | SakeTamuはモノづくりに含める |
+| 360°VR | LAB / vr | 「沖縄［OKinawa］」と同時に付いている記事が多い |
+| IoT | LAB / iot | 記事の大半。「【IoTinfo】」「CEATEC」などの接頭辞はタイトル側の表記で、カテゴリではない |
+| 沖縄［OKinawa］ | （主カテゴリにしない） | 他のカテゴリに従い、「沖縄」はタグとして残す |
+
+PLAY側は記事が4本しかない。一覧が寂しくならないよう、PLAYトップでは「反省動画」「実績」のような見せ方（カード大きめ・YouTube埋め込みを前面に）で工夫する。
 
 ---
 
