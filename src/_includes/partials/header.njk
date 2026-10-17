@@ -1,0 +1,23 @@
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="brand" href="{{ '/' | url }}">
+      <img class="brand__mark" src="{{ '/assets/img/okstyle-mark.svg' | url }}" width="48" height="48" alt="OKstyle">
+      <span class="brand__text">
+        <span class="brand__name">LAB <span class="brand__amp">&amp;</span> PLAY</span>
+        <span class="brand__tagline">{{ site.tagline }}</span>
+      </span>
+    </a>
+    <nav class="site-nav" aria-label="メインメニュー">
+      {%- set navItems = [
+        { href: "/lab/", label: "LAB", key: "lab" },
+        { href: "/play/", label: "PLAY", key: "play" },
+        { href: "/archive/", label: "ARCHIVE", key: "archive" },
+        { href: "/about/", label: "ABOUT", key: "about" }
+      ] %}
+      {%- for nav in navItems %}
+      {%- set isCurrent = (page.url.startsWith(nav.href)) or (isPost and world == nav.key) %}
+      <a class="site-nav__link site-nav__link--{{ nav.key }}" href="{{ nav.href | url }}"{% if isCurrent %} aria-current="page"{% endif %}>{{ nav.label }}</a>
+      {%- endfor %}
+    </nav>
+  </div>
+</header>

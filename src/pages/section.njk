@@ -1,0 +1,41 @@
+---
+# LAB のカテゴリ一覧（/lab/<category>/）と PLAY のジャンル一覧（/play/<genre>/）。
+# lib/taxonomy.js の SECTIONS に1件足すと、ここで自動的にページが増える。
+pagination:
+  data: worlds.sections
+  size: 1
+  alias: sec
+permalink: "/{{ sec.world }}/{{ sec.slug }}/"
+eleventyComputed:
+  title: "{{ sec.name }}｜{{ worlds[sec.world].name }}"
+  world: "{{ sec.world }}"
+  description: "{{ sec.description }}"
+---
+{%- set w = worlds[sec.world] %}
+{%- set secPosts = collections.articles | bySection(sec.slug) %}
+<section class="world-hero world-hero--{{ sec.world }} world-hero--compact">
+  <div class="container world-hero__inner">
+    <img class="world-hero__logo" src="{{ w.logo | url }}" width="120" height="120" alt="">
+    <div>
+      <nav class="breadcrumb" aria-label="パンくずリスト">
+        <a href="{{ '/' | url }}">TOP</a>
+        <span aria-hidden="true">/</span>
+        <a href="{{ ('/' + sec.world + '/') | url }}">{{ w.name }}</a>
+      </nav>
+      <p class="world-hero__kicker">{{ w.name }} / {{ sec.en }}</p>
+      <h1 class="world-hero__title">{{ sec.name }}</h1>
+      <p class="world-hero__lead">{{ sec.description }}</p>
+      <p class="world-hero__stat"><span>{{ secPosts.length }}</span> 件の記事</p>
+    </div>
+  </div>
+</section>
+
+<section class="container" aria-label="{{ sec.name }} の記事一覧">
+  <div class="card-grid{% if sec.world == 'play' %} card-grid--play{% endif %}">
+    {%- set showExcerpt = true %}
+    {%- for item in secPosts %}
+    {% include "partials/card.njk" %}
+    {%- endfor %}
+  </div>
+  <p class="back-link"><a class="button button--{{ sec.world }}" href="{{ ('/' + sec.world + '/') | url }}">{{ w.name }} トップへ戻る</a></p>
+</section>

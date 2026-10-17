@@ -1,0 +1,29 @@
+---
+permalink: /archive/
+world: neutral
+title: ARCHIVE
+description: OKstyle LAB & PLAY の全記事一覧（年別）。
+---
+{%- set years = collections.articles | groupByYear %}
+<section class="page-hero">
+  <div class="container">
+    <p class="page-hero__kicker">ARCHIVE</p>
+    <h1 class="page-hero__title">全記事一覧</h1>
+    <p class="page-hero__lead">{{ (years | last).year }}年から続く {{ collections.articles.length }} 本の記録。新しい順・年別に並べています。</p>
+    <nav class="year-nav" aria-label="年へ移動">
+      {%- for g in years %}
+      <a href="#y{{ g.year }}">{{ g.year }}<small>{{ g.posts.length }}</small></a>
+      {%- endfor %}
+    </nav>
+  </div>
+</section>
+
+<div class="container archive">
+  {%- for g in years %}
+  <section class="archive__year" id="y{{ g.year }}" aria-labelledby="y{{ g.year }}-h">
+    <h2 class="archive__heading" id="y{{ g.year }}-h">{{ g.year }}<small>{{ g.posts.length }} 本</small></h2>
+    {%- set listPosts = g.posts %}
+    {% include "partials/post-list.njk" %}
+  </section>
+  {%- endfor %}
+</div>

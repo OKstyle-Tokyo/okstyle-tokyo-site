@@ -1,0 +1,41 @@
+---
+permalink: /
+isHome: true
+world: home
+title: トップ
+---
+<section class="home-hero" aria-labelledby="home-welcome">
+  <p id="home-welcome" class="home-hero__welcome">ようこそ、<strong>ワクワクPlayground</strong>へ</p>
+  <div class="home-hero__split">
+    <a class="gate gate--lab" href="{{ '/lab/' | url }}">
+      <span class="gate__bg" aria-hidden="true"></span>
+      <img class="gate__logo" src="{{ worlds.lab.logo | url }}" width="160" height="160" alt="">
+      <span class="gate__kicker">{{ worlds.lab.kicker }}</span>
+      <span class="gate__name">LAB</span>
+      <span class="gate__catch">{{ worlds.lab.catch }}</span>
+      <span class="gate__lead">IoT・ものづくり・360°VR</span>
+      <span class="gate__button">LABに入る <span aria-hidden="true">→</span></span>
+    </a>
+    <a class="gate gate--play" href="{{ '/play/' | url }}">
+      <span class="gate__bg" aria-hidden="true"></span>
+      <img class="gate__logo" src="{{ worlds.play.logo | url }}" width="160" height="160" alt="">
+      <span class="gate__kicker">{{ worlds.play.kicker }}</span>
+      <span class="gate__name">PLAY</span>
+      <span class="gate__catch">{{ worlds.play.catch }}</span>
+      <span class="gate__lead">プレイ記録・反省動画</span>
+      <span class="gate__button">PLAYで遊ぶ <span aria-hidden="true">→</span></span>
+    </a>
+  </div>
+</section>
+
+<section class="home-latest container" aria-labelledby="latest-heading">
+  <div class="section-head">
+    <h2 id="latest-heading" class="section-head__title">最新記事</h2>
+    <a class="section-head__more" href="{{ '/archive/' | url }}">すべての記事（{{ collections.articles.length }}本）→</a>
+  </div>
+  <div class="card-grid">
+    {%- for item in collections.articles | head(8) %}
+    {% include "partials/card.njk" %}
+    {%- endfor %}
+  </div>
+</section>

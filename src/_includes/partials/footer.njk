@@ -1,0 +1,8 @@
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <p class="site-footer__title">{{ site.title }} — {{ site.tagline }}</p>
+    {% include "partials/sns.njk" %}
+    <p class="site-footer__contact">ご連絡はSNSのDMからどうぞ</p>
+    <p class="site-footer__copy">&copy; {{ (collections.articles | last).date | year }}–{{ "now" | year }} {{ site.author }}</p>
+  </div>
+</footer>

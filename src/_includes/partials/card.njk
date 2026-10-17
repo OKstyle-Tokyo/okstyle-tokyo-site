@@ -1,0 +1,25 @@
+{#- 記事カード。呼び出し側で item（コレクションの要素）をセットしてから include する -#}
+{%- set pl = item.data | placement %}
+{%- set sec = pl.section | sectionInfo %}
+<article class="card card--{{ pl.world }}">
+  <a class="card__link" href="{{ item.url | url }}">
+    <div class="card__thumb">
+      {%- if item.data.featured %}
+      <img src="{{ item.data.featured | url }}" alt="" loading="lazy" decoding="async">
+      {%- else %}
+      <span class="card__nothumb">{{ sec.name }}</span>
+      {%- endif %}
+    </div>
+    <div class="card__body">
+      <p class="card__meta">
+        <span class="world-badge world-badge--{{ pl.world }}">{{ worlds[pl.world].name }}</span>
+        <span class="card__section">{{ sec.name }}</span>
+        <time datetime="{{ item.date | isoDate }}">{{ item.date | ymd }}</time>
+      </p>
+      <h3 class="card__title">{{ item.data.title }}</h3>
+      {%- if showExcerpt %}
+      <p class="card__excerpt">{{ item.data.excerpt | plainText(70) }}</p>
+      {%- endif %}
+    </div>
+  </a>
+</article>
