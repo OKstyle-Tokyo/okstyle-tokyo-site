@@ -1,0 +1,57 @@
+---
+permalink: /lab/
+world: lab
+title: LAB
+description: OKstyle LAB — IoT・ものづくり・360°VR の観測と実験の記録。
+---
+{%- set labPosts = collections.articles | byWorld("lab") %}
+<section class="world-hero world-hero--lab">
+  <div class="container world-hero__inner">
+    <img class="world-hero__logo" src="{{ worlds.lab.logo | url }}" width="180" height="180" alt="LAB ロゴ">
+    <div>
+      <p class="world-hero__kicker">{{ worlds.lab.kicker }}</p>
+      <h1 class="world-hero__title">LAB</h1>
+      <p class="world-hero__catch">{{ worlds.lab.catch }}</p>
+      <p class="world-hero__lead">{{ worlds.lab.lead }}</p>
+      <p class="world-hero__stat"><span>{{ labPosts.length }}</span> 件の観測ログ</p>
+    </div>
+  </div>
+</section>
+
+<section class="container" aria-labelledby="lab-sections">
+  <div class="section-head">
+    <h2 id="lab-sections" class="section-head__title">実験区画</h2>
+  </div>
+  <div class="entry-grid">
+    {%- for sec in worlds.labSections %}
+    {%- set secPosts = labPosts | bySection(sec.slug) %}
+    <a class="entry-tile entry-tile--lab" href="{{ ('/lab/' + sec.slug + '/') | url }}">
+      <span class="entry-tile__no">{{ "0" + loop.index }}</span>
+      <span class="entry-tile__en">{{ sec.en }}</span>
+      <span class="entry-tile__name">{{ sec.name }}</span>
+      <span class="entry-tile__desc">{{ sec.description }}</span>
+      <span class="entry-tile__count">{{ secPosts.length }} 件</span>
+    </a>
+    {%- endfor %}
+  </div>
+</section>
+
+<section class="container" aria-labelledby="lab-latest">
+  <div class="section-head">
+    <h2 id="lab-latest" class="section-head__title">最新の観測</h2>
+  </div>
+  <div class="card-grid">
+    {%- for item in labPosts | head(12) %}
+    {% include "partials/card.njk" %}
+    {%- endfor %}
+  </div>
+</section>
+
+<section class="container" aria-labelledby="lab-all">
+  <div class="section-head">
+    <h2 id="lab-all" class="section-head__title">観測ログ一覧</h2>
+    <span class="section-head__note">古い記事も含めた LAB の全記事</span>
+  </div>
+  {%- set listPosts = labPosts | skip(12) %}
+  {% include "partials/post-list.njk" %}
+</section>

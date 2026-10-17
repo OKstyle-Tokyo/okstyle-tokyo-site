@@ -1,0 +1,101 @@
+---
+permalink: /play/
+world: play
+title: PLAY
+description: OKstyle PLAY — プレイ記録と反省動画のステージ。
+---
+{%- set playPosts = collections.articles | byWorld("play") %}
+{%- set videoPosts = [] %}
+{%- set logPosts = [] %}
+{%- for item in playPosts %}
+  {%- if (item | youtubeIds).length %}{% set videoPosts = (videoPosts.push(item), videoPosts) %}{% else %}{% set logPosts = (logPosts.push(item), logPosts) %}{% endif %}
+{%- endfor %}
+<section class="world-hero world-hero--play">
+  <div class="container world-hero__inner">
+    <img class="world-hero__logo" src="{{ worlds.play.logo | url }}" width="180" height="180" alt="PLAY ロゴ">
+    <div>
+      <p class="world-hero__kicker">{{ worlds.play.kicker }}</p>
+      <h1 class="world-hero__title">PLAY</h1>
+      <p class="world-hero__catch">{{ worlds.play.catch }}</p>
+      <p class="world-hero__lead">{{ worlds.play.lead }}</p>
+    </div>
+  </div>
+</section>
+
+<section class="container" aria-labelledby="play-genres">
+  <div class="section-head">
+    <h2 id="play-genres" class="section-head__title">ジャンル</h2>
+  </div>
+  <div class="entry-grid entry-grid--play">
+    {%- for sec in worlds.playSections %}
+    {%- set secPosts = playPosts | bySection(sec.slug) %}
+    <a class="entry-tile entry-tile--play" href="{{ ('/play/' + sec.slug + '/') | url }}">
+      <span class="entry-tile__en">{{ sec.en }}</span>
+      <span class="entry-tile__name">{{ sec.name }}</span>
+      <span class="entry-tile__desc">{{ sec.description }}</span>
+      <span class="entry-tile__count">{{ secPosts.length }} 本</span>
+    </a>
+    {%- endfor %}
+    <div class="entry-tile entry-tile--play entry-tile--soon" aria-label="次のジャンルは準備中">
+      <span class="entry-tile__en">Next Stage</span>
+      <span class="entry-tile__name">COMING SOON</span>
+      <span class="entry-tile__desc">次に遊ぶゲームが決まったら、ここにジャンルが増えます。</span>
+    </div>
+  </div>
+</section>
+
+{%- if videoPosts.length %}
+<section class="container" aria-labelledby="play-videos">
+  <div class="section-head">
+    <h2 id="play-videos" class="section-head__title">反省動画</h2>
+    <span class="section-head__note">ステージ別・ルール別に、自分の立ち回りをふり返る</span>
+  </div>
+  <div class="video-stage">
+    {%- for item in videoPosts %}
+    {%- set ytId = (item | youtubeIds)[0] %}
+    <article class="video-card{% if loop.first %} video-card--feature{% endif %}">
+      <div class="video-card__player">
+        <iframe loading="lazy" src="https://www.youtube.com/embed/{{ ytId }}" title="{{ item.data.title }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      </div>
+      <div class="video-card__body">
+        <p class="card__meta">
+          <span class="world-badge world-badge--play">PLAY</span>
+          <time datetime="{{ item.date | isoDate }}">{{ item.date | ymd }}</time>
+        </p>
+        <h3 class="video-card__title"><a href="{{ item.url | url }}">{{ item.data.title }}</a></h3>
+        <p class="video-card__excerpt">{{ item.data.excerpt | plainText(80) }}</p>
+      </div>
+    </article>
+    {%- endfor %}
+  </div>
+</section>
+{%- endif %}
+
+<section class="container play-records" aria-labelledby="play-records">
+  <div class="section-head">
+    <h2 id="play-records" class="section-head__title">実績ボード</h2>
+    <span class="section-head__note">PLAY の活動記録</span>
+  </div>
+  <dl class="record-board">
+    <div class="record-board__item"><dt>記事</dt><dd>{{ playPosts.length }}<small>本</small></dd></div>
+    <div class="record-board__item"><dt>反省動画</dt><dd>{{ videoPosts.length }}<small>本</small></dd></div>
+    {%- if playPosts.length %}
+    <div class="record-board__item"><dt>はじまり</dt><dd class="is-date">{{ (playPosts | last).date | ymd }}</dd></div>
+    <div class="record-board__item"><dt>最新</dt><dd class="is-date">{{ (playPosts | first).date | ymd }}</dd></div>
+    {%- endif %}
+  </dl>
+</section>
+
+{%- if logPosts.length %}
+<section class="container" aria-labelledby="play-logs">
+  <div class="section-head">
+    <h2 id="play-logs" class="section-head__title">プレイ記録</h2>
+  </div>
+  <div class="card-grid card-grid--play">
+    {%- set showExcerpt = true %}
+    {%- for item in logPosts %}
+    {% include "partials/card.njk" %}
+    {%- endfor %}
+  </div>
+</section>
+{%- endif %}

@@ -1,0 +1,15 @@
+{#- コンパクトな記事リスト。呼び出し側で listPosts をセットしてから include する -#}
+<ol class="post-list">
+  {%- for item in listPosts %}
+  {%- set pl = item.data | placement %}
+  {%- set sec = pl.section | sectionInfo %}
+  <li class="post-list__item post-list__item--{{ pl.world }}">
+    <time class="post-list__date" datetime="{{ item.date | isoDate }}">{{ item.date | ymd }}</time>
+    <span class="post-list__labels">
+      <span class="world-badge world-badge--{{ pl.world }}">{{ worlds[pl.world].name }}</span>
+      <span class="post-list__section">{{ sec.name }}</span>
+    </span>
+    <a class="post-list__title" href="{{ item.url | url }}">{{ item.data.title }}</a>
+  </li>
+  {%- endfor %}
+</ol>

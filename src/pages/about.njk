@@ -1,0 +1,42 @@
+---
+permalink: /about/
+world: neutral
+title: ABOUT
+description: OKstyle LAB & PLAY について。LAB（技術）と PLAY（ゲーム）の2つの世界でできた、OKstyle の個人サイトです。
+---
+<section class="page-hero">
+  <div class="container">
+    <p class="page-hero__kicker">ABOUT</p>
+    <h1 class="page-hero__title">このサイトについて</h1>
+  </div>
+</section>
+
+<div class="container about">
+  <div class="about__intro">
+    <img class="about__mark" src="{{ '/assets/img/okstyle-mark.svg' | url }}" width="120" height="120" alt="OKstyle ロゴ">
+    <div class="prose">
+      <p class="about__hello">めんそ〜れ！はいさい、OKstyle です。</p>
+      <p>このサイトは、これまで書いてきたブログ「IOTだよ/OKstyle」をお引っ越しして、<strong>LAB</strong> と <strong>PLAY</strong> の2つの世界に分けた個人の趣味サイトです。どちらにも共通するテーマは「ワクワク」と「楽しい」。</p>
+      <p>ちなみに旧サイト名の「IOT」は、<em>It's OKstyle Time!!</em> の略でした (^^)</p>
+    </div>
+  </div>
+
+  <div class="about__worlds">
+    <a class="about-world about-world--lab" href="{{ '/lab/' | url }}">
+      <img src="{{ worlds.lab.logo | url }}" width="96" height="96" alt="">
+      <span class="about-world__name">LAB</span>
+      <span class="about-world__desc">知識ゼロから追いかけた IoT の情報や試してみたレポート、電子工作などのものづくり、お酒×IoT の SakeTamu、愛用の全天球カメラで撮った 360°VR。</span>
+    </a>
+    <a class="about-world about-world--play" href="{{ '/play/' | url }}">
+      <img src="{{ worlds.play.logo | url }}" width="96" height="96" alt="">
+      <span class="about-world__name">PLAY</span>
+      <span class="about-world__desc">ゲームのプレイ記録と、ステージ別・ルール別に立ち回りをふり返る反省動画「猛反省道場」。</span>
+    </a>
+  </div>
+
+  <section class="about__contact" aria-labelledby="about-sns">
+    <h2 id="about-sns">SNS</h2>
+    {% include "partials/sns.njk" %}
+    <p>ご連絡はSNSのDMからどうぞ。（問い合わせフォームはありません）</p>
+  </section>
+</div>

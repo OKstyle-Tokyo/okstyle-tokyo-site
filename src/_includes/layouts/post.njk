@@ -1,0 +1,59 @@
+---
+layout: layouts/base.njk
+---
+{%- set sec = placement.section | sectionInfo %}
+{%- set w = worlds[placement.world] %}
+{%- set worldPosts = collections.articles | byWorld(placement.world) %}
+{%- set nb = worldPosts | neighbors(page.url) %}
+<article class="post post--{{ placement.world }}">
+  <header class="post-header">
+    <nav class="breadcrumb" aria-label="パンくずリスト">
+      <a href="{{ '/' | url }}">TOP</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ ('/' + placement.world + '/') | url }}">{{ w.name }}</a>
+      <span aria-hidden="true">/</span>
+      <a href="{{ ('/' + placement.world + '/' + sec.slug + '/') | url }}">{{ sec.name }}</a>
+    </nav>
+    <p class="post-header__meta">
+      <span class="world-badge world-badge--{{ placement.world }}">{{ w.name }}</span>
+      <a class="post-header__section" href="{{ ('/' + placement.world + '/' + sec.slug + '/') | url }}">{{ sec.name }}</a>
+      <time datetime="{{ page.date | isoDate }}">{{ page.date | ymd }}</time>
+      {%- if modified and (modified | ymd) != (page.date | ymd) %}
+      <span class="post-header__updated">更新 <time datetime="{{ modified | isoDate }}">{{ modified | ymd }}</time></span>
+      {%- endif %}
+    </p>
+    <h1 class="post-header__title">{{ title }}</h1>
+    {%- if postTags.length %}
+    <ul class="tag-list" aria-label="タグ">
+      {%- for tag in postTags %}
+      <li class="tag">#{{ tag }}</li>
+      {%- endfor %}
+    </ul>
+    {%- endif %}
+  </header>
+
+  <div class="entry">
+    {{ content | safe }}
+  </div>
+
+  <footer class="post-footer">
+    <nav class="post-nav" aria-label="前後の記事（{{ w.name }}）">
+      {%- if nb.newer %}
+      <a class="post-nav__link post-nav__link--newer" href="{{ nb.newer.url | url }}">
+        <span class="post-nav__dir">← 新しい記事</span>
+        <span class="post-nav__title">{{ nb.newer.data.title }}</span>
+      </a>
+      {%- endif %}
+      {%- if nb.older %}
+      <a class="post-nav__link post-nav__link--older" href="{{ nb.older.url | url }}">
+        <span class="post-nav__dir">古い記事 →</span>
+        <span class="post-nav__title">{{ nb.older.data.title }}</span>
+      </a>
+      {%- endif %}
+    </nav>
+    <p class="post-footer__back">
+      <a class="button button--{{ placement.world }}" href="{{ ('/' + placement.world + '/' + sec.slug + '/') | url }}">{{ sec.name }} の記事一覧へ</a>
+      <a class="button button--ghost" href="{{ ('/' + placement.world + '/') | url }}">{{ w.name }} トップへ</a>
+    </p>
+  </footer>
+</article>

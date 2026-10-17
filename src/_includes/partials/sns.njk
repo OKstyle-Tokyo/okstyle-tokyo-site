@@ -1,0 +1,11 @@
+<ul class="sns-list">
+  {%- for s in site.sns %}
+  <li>
+    {%- if s.url %}
+    <a class="sns-link sns-link--{{ s.key }}" href="{{ s.url }}" rel="me noopener" target="_blank">{{ s.name }}</a>
+    {%- else %}
+    <span class="sns-link sns-link--{{ s.key }} is-pending" title="URL準備中">{{ s.name }}<small>準備中</small></span>
+    {%- endif %}
+  </li>
+  {%- endfor %}
+</ul>

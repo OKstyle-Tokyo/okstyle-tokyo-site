@@ -1,0 +1,24 @@
+{
+  "name": "okstyle-tokyo-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "OKstyle LAB & PLAY — ワクワクPlayground",
+  "scripts": {
+    "build": "eleventy",
+    "start": "eleventy --serve",
+    "check": "node scripts/check-site.mjs",
+    "docs": "node scripts/generate-docs.mjs"
+  },
+  "engines": {
+    "node": ">=20.11"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.6",
+    "gray-matter": "4.0.3",
+    "markdown-it": "14.1.0"
+  },
+  "type": "module",
+  "overrides": {
+    "markdown-it": "14.1.0"
+  }
+}
